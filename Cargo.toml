@@ -1,0 +1,16 @@
+[package]
+name = "playground"
+version = "0.0.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+bstr = "1.9.1"
+
+[dependencies.gix]
+version = "0.63.0"
+features = [
+    "blocking-http-transport-reqwest",
+    "blocking-http-transport-reqwest-rust-tls-trust-dns",
+    "blocking-http-transport-reqwest-native-tls",
+]
