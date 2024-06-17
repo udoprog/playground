@@ -5,11 +5,13 @@ use anyhow::{Context, Result};
 mod git;
 
 fn main() -> Result<()> {
+    tracing_subscriber::fmt::init();
+
     let path = Path::new("repo-0");
 
     let r = match gix::open(&path) {
         Ok(r) => r,
-        Err(error) if matches!(error, gix::open::Error::NotARepository { .. }) => gix::init(&path)?,
+        Err(error) if matches!(error, gix::open::Error::NotARepository { .. }) => gix::init_bare(&path)?,
         Err(error) => return Err(error).context("Failed to open or initialize cache repository"),
     };
 
