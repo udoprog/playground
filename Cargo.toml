@@ -14,8 +14,7 @@ features = [
     "blocking-http-transport-reqwest",
     "blocking-http-transport-reqwest-rust-tls-trust-dns",
     "blocking-http-transport-reqwest-native-tls",
-    "tracing",
 ]
 
 [patch.crates-io]
-gix = { git = "https://github.com/udoprog/gitoxide", branch = "file-tracing" }
+gix = { git = "https://github.com/Byron/gitoxide" }

@@ -4,18 +4,17 @@ use std::num::NonZeroU32;
 use std::sync::atomic::AtomicBool;
 
 use anyhow::{Context, Result};
-use bstr::BStr;
+use bstr::{BStr, BString};
 use gix::remote::fetch::Source;
 use gix::Repository;
 
 use self::progress::Logger;
 
-pub(crate) fn sync(repo: &Repository, url: &str, refspecs: &[String]) -> Result<()> {
-    let refspecs = refspecs.iter().map(|s| BStr::new(s.as_bytes()));
-
+pub(crate) fn sync(repo: &Repository, url: &str, refspecs: &[BString]) -> Result<()> {
     let remote = repo
         .find_fetch_remote(Some(BStr::new(url)))
         .context("Failed to find or make fetch remote")?
+        .with_fetch_tags(gix::remote::fetch::Tags::None)
         .with_refspecs(refspecs, gix::remote::Direction::Fetch)?;
 
     let options = gix::remote::ref_map::Options::default();
